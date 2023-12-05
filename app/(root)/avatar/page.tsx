@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EmployeeSchema } from "@/lib/validation";
 import { z } from "zod";
+import { toast, Toaster } from "sonner";
 
 function getImageData(event: ChangeEvent<HTMLInputElement>) {
   // FileList is immutable, so we need to create a new one
@@ -55,6 +56,7 @@ const Page = () => {
 
   return (
     <>
+      <Toaster />
       <Form {...form}>
         <form
           className="space-y-8 mt-10"
