@@ -143,7 +143,7 @@ export default function Home() {
               accept="image/**"
               className="cursor-pointer text-gray-400 hover:bg-gray-100 transition text-sm"
               id="file-upload"
-              type="file"
+              type="image"
               onChange={handleFileChange}
             />
           </label>
