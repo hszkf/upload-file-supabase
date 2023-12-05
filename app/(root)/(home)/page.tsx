@@ -84,7 +84,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen m-6 flex-col gap-10 max-w-2xl mx-auto px-10">
+    <div className="flex justify-center items-center flex-col gap-10 max-w-2xl mx-auto px-10 h-[42rem]">
       <Toaster position="top-center" />
 
       {selectedFile ? (
