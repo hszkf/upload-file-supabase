@@ -11,6 +11,7 @@ import { createClient } from "@supabase/supabase-js";
 import { createImageMetadata } from "@/lib/action";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { Toaster, toast } from "sonner";
 
 export default function Home() {
   // const user_id = "1234";
@@ -66,6 +67,8 @@ export default function Home() {
           image_url: `${SUPABASE_URL}${SUPABASE_FILE_DIRECTORY}/avatars/public/${randomFileName}`,
           path: path,
         });
+
+        toast.success("Image has been stored");
       } catch (error) {
         console.log(error);
         throw error;
@@ -81,6 +84,8 @@ export default function Home() {
 
   return (
     <div className="flex justify-center items-center min-h-screen m-6 flex-col gap-10 max-w-2xl mx-auto px-10">
+      <Toaster position="top-center" />
+
       {selectedFile ? (
         <div className="relative w-full mb-4 flex justify-center items-center flex-col gap-2">
           {selectedFile && (
