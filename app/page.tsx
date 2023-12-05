@@ -21,6 +21,7 @@ export default function Home() {
   const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
   const SUPABASE_FILE_DIRECTORY = "/storage/v1/object/public";
   const [selectedFile, setSelectedFile] = useState(null);
+  const [fileName, setFileName] = useState("");
   const [uploading, setUploading] = useState(false);
   const [ImageURL, setImageURL] = useState("");
   const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -28,8 +29,8 @@ export default function Home() {
 
   const handleFileChange = (e: any) => {
     const file = e.target.files[0];
-    // console.log(file);
     setSelectedFile(file);
+    setFileName(file.name);
   };
 
   const handleUpload = async () => {
@@ -42,7 +43,7 @@ export default function Home() {
 
     try {
       // Extract file extension (e.g., 'jpg', 'png') from the original file name
-      const fileExtension = selectedFile?.name.split(".").pop();
+      const fileExtension = fileName.split(".").pop();
 
       // Generate a random UUID and use it as the prefix for the file name
       const randomFileName = `${uuidv4()}.${fileExtension}`;
@@ -68,7 +69,7 @@ export default function Home() {
           path: path,
         });
 
-        toast.success("Image has been stored");
+        toast.success("Image has been stored to the database");
       } catch (error) {
         console.log(error);
         throw error;
@@ -97,13 +98,19 @@ export default function Home() {
               className="rounded-lg"
             />
           )}
+
           {ImageURL && (
-            <Link
-              className="block break-all text-xs mt-4 text-gray-400 hover:underline hover:text-black"
-              href={ImageURL}
-            >
-              {ImageURL}
-            </Link>
+            <>
+              <Link
+                className="block break-all text-xs mt-4 text-gray-400 hover:underline hover:text-black"
+                href={ImageURL}
+              >
+                <span className="text-gray-500 font-bold text-md">
+                  Click this link to view full image:
+                </span>{" "}
+                {ImageURL}
+              </Link>
+            </>
           )}
         </div>
       ) : (
