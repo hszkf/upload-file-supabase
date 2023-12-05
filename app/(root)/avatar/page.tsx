@@ -29,7 +29,7 @@ function getImageData(event: ChangeEvent<HTMLInputElement>) {
   );
 
   const files = dataTransfer.files;
-  console.log(files);
+  // console.log(files);
   const displayUrl = URL.createObjectURL(event.target.files![0]);
 
   return { files, displayUrl };
