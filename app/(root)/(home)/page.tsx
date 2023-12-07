@@ -6,31 +6,34 @@ import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import { v4 as uuidv4 } from "uuid";
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { createImageMetadata } from "@/lib/action";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { Toaster, toast } from "sonner";
+import supabase from "@/lib/supabase";
 
 export default function Home() {
   // const user_id = "1234";
   const user_id = uuidv4() as string;
   // const user_id = "9ec382ba-22ac-4d1d-8c86-b5d631c67ae5";
   const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-  const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+  // const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
   const SUPABASE_FILE_DIRECTORY = "/storage/v1/object/public";
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileName, setFileName] = useState("");
   const [uploading, setUploading] = useState(false);
   const [ImageURL, setImageURL] = useState("");
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   const path = usePathname();
 
   const handleFileChange = (e: any) => {
     const file = e.target.files[0];
     setSelectedFile(file);
     setFileName(file.name);
+
+    console.log(file);
   };
 
   const handleUpload = async () => {

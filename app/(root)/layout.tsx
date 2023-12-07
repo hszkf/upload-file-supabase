@@ -24,13 +24,13 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
                   className={buttonVariants({ variant: "outline" })}
                   href="/"
                 >
-                  Home
+                  File only
                 </Link>
                 <Link
                   className={buttonVariants({ variant: "outline" })}
-                  href="/avatar"
+                  href="/formwithavatar"
                 >
-                  Not home
+                  Form with avatar
                 </Link>
               </div>
               <div className="flex gap-4">
