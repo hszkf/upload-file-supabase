@@ -23,6 +23,7 @@ import router from "next/router";
 import { createformWithAvatar } from "@/lib/action";
 import supabase from "@/lib/supabase";
 import { v4 as uuidv4 } from "uuid";
+import Link from "next/link";
 
 const Page = () => {
   const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
@@ -132,104 +133,113 @@ const Page = () => {
   return (
     <>
       <Toaster />
-      <Form {...form}>
-        <form
-          className="space-y-8 mt-10"
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem className="flex flex-col w-full">
-                <FormLabel className="mt-8">
-                  Email <span className="">*</span>
-                </FormLabel>
-                <FormControl className="mt-3.5">
-                  <Input
-                    className="no-focus paragraph-regular min-h-[42px] border"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage className="text-red-500" />
-              </FormItem>
-            )}
-          />{" "}
-          <FormField
-            control={form.control}
-            name="first_name"
-            render={({ field }) => (
-              <FormItem className="flex flex-col w-full">
-                <FormLabel className="">
-                  First Name <span className="">*</span>
-                </FormLabel>
-                <FormControl className="mt-3.5">
-                  <Input
-                    className="no-focus paragraph-regular min-h-[42px] border"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage className="text-red-500" />
-              </FormItem>
-            )}
-          />{" "}
-          <FormField
-            control={form.control}
-            name="last_name"
-            render={({ field }) => (
-              <FormItem className="flex flex-col w-full">
-                <FormLabel className="">
-                  Last Name <span className="">*</span>
-                </FormLabel>
-                <FormControl className="mt-3.5">
-                  <Input
-                    className="no-focus paragraph-regular min-h-[42px] border"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage className="text-red-500" />
-              </FormItem>
-            )}
-          />{" "}
-          <Avatar className="w-24 h-24">
-            <AvatarImage src={preview} />
-            <AvatarFallback>AZ</AvatarFallback>
-          </Avatar>
-          <FormField
-            control={form.control}
-            name="avatar_url"
-            render={({ field: { onChange, value, ...rest } }) => (
-              <>
-                <FormItem>
-                  <FormLabel>Upload your avatar</FormLabel>
-                  <FormControl>
+      <div className="flex justify-center items-center flex-col gap-10 max-w-2xl mx-auto px-10 h-[42rem]">
+        <Form {...form}>
+          <form
+            className="space-y-8 mt-10"
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem className="flex flex-col w-full">
+                  <FormLabel className="mt-8">
+                    Email <span className="">*</span>
+                  </FormLabel>
+                  <FormControl className="mt-3.5">
                     <Input
-                      type="file"
-                      {...rest}
-                      onChange={(event) => {
-                        const { files, displayUrl } = getImageData(event);
-                        handleFileChange(event);
-                        setPreview(displayUrl);
-                        // onChange(files);
-                      }}
+                      className="no-focus paragraph-regular min-h-[42px] border"
+                      {...field}
                     />
                   </FormControl>
-                  <FormDescription>URL avatar: {preview}</FormDescription>
-                  <FormDescription>URL supabase: {ImageURL}</FormDescription>
-                  <FormMessage />
+                  <FormMessage className="text-red-500" />
                 </FormItem>
-              </>
-            )}
-          />
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            onClick={() => toast.success(`New employee has been created`)}
-          >
-            {isSubmitting ? <div>Submitting...</div> : <div>Submit</div>}
-          </Button>
-        </form>
-      </Form>
+              )}
+            />{" "}
+            <FormField
+              control={form.control}
+              name="first_name"
+              render={({ field }) => (
+                <FormItem className="flex flex-col w-full">
+                  <FormLabel className="">
+                    First Name <span className="">*</span>
+                  </FormLabel>
+                  <FormControl className="mt-3.5">
+                    <Input
+                      className="no-focus paragraph-regular min-h-[42px] border"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />{" "}
+            <FormField
+              control={form.control}
+              name="last_name"
+              render={({ field }) => (
+                <FormItem className="flex flex-col w-full">
+                  <FormLabel className="">
+                    Last Name <span className="">*</span>
+                  </FormLabel>
+                  <FormControl className="mt-3.5">
+                    <Input
+                      className="no-focus paragraph-regular min-h-[42px] border"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage className="text-red-500" />
+                </FormItem>
+              )}
+            />{" "}
+            <Avatar className="w-24 h-24">
+              <AvatarImage src={preview} />
+              <AvatarFallback>AZ</AvatarFallback>
+            </Avatar>
+            <FormField
+              control={form.control}
+              name="avatar_url"
+              render={({ field: { onChange, value, ...rest } }) => (
+                <>
+                  <FormItem>
+                    <FormLabel>Upload your avatar</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="file"
+                        {...rest}
+                        onChange={(event) => {
+                          const { files, displayUrl } = getImageData(event);
+                          handleFileChange(event);
+                          setPreview(displayUrl);
+                          // onChange(files);
+                        }}
+                      />
+                    </FormControl>
+                    <FormDescription>URL avatar: {preview}</FormDescription>
+
+                    <Link
+                      className="block break-all text-xs mt-4 text-gray-400 hover:underline hover:text-black"
+                      href={ImageURL}
+                    >
+                      URL supabase: {ImageURL}
+                    </Link>
+
+                    <FormMessage />
+                  </FormItem>
+                </>
+              )}
+            />
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              onClick={() => toast.success(`New employee has been created`)}
+            >
+              {isSubmitting ? <div>Submitting...</div> : <div>Submit</div>}
+            </Button>
+          </form>
+        </Form>
+      </div>
     </>
   );
 };
