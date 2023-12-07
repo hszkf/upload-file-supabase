@@ -132,7 +132,7 @@ const Page = () => {
 
   return (
     <>
-      <Toaster />
+      <Toaster position="top-center" richColors />
       <div className="flex justify-center items-center flex-col gap-10 max-w-2xl mx-auto px-10 h-[42rem]">
         <Form {...form}>
           <form
